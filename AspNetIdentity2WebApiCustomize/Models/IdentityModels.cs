@@ -43,20 +43,25 @@ namespace AspNetIdentity2WebApiCustomize.Models
   // Must be expressed in terms of our custom Role and other types:
   public class ApplicationUser
       : IdentityUser<string, ApplicationUserLogin,
-      ApplicationUserRole, ApplicationUserClaim> {
-    public ApplicationUser() {
-      this.Id = Guid.NewGuid().ToString();
+      ApplicationUserRole, ApplicationUserClaim> 
+  {
+      public ApplicationUser()
+      {
+          this.Id = Guid.NewGuid().ToString();
 
-      // Add any custom User properties/code here
-    }
+          // Add any custom User properties/code here
+      }
 
 
-    public async Task<ClaimsIdentity>
-        GenerateUserIdentityAsync(ApplicationUserManager manager) {
-      var userIdentity = await manager
-          .CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-      return userIdentity;
-    }
+      // ** Add authenticationtype as method parameter:
+      public async Task<ClaimsIdentity>
+          GenerateUserIdentityAsync(ApplicationUserManager manager, string authenticationType)
+      {
+          // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+          var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
+          // Add custom user claims here
+          return userIdentity;
+      }
   }
 
 
