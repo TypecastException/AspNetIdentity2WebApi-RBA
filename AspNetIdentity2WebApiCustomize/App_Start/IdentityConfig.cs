@@ -8,9 +8,10 @@ using System.Web;
 
 namespace AspNetIdentity2WebApiCustomize
 {
-    public class ApplicationUserManager : UserManager<ApplicationUser>
+    public class ApplicationUserManager 
+        : UserManager<ApplicationUser, string>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store)
+        public ApplicationUserManager(IUserStore<ApplicationUser, string> store)
             : base(store)
         {
         }
@@ -20,8 +21,9 @@ namespace AspNetIdentity2WebApiCustomize
             IOwinContext context)
         {
             var manager = new ApplicationUserManager(
-                new UserStore<ApplicationUser>(
-                    context.Get<ApplicationDbContext>()));
+                new UserStore<ApplicationUser, ApplicationRole, string, 
+                    ApplicationUserLogin, ApplicationUserRole, 
+                    ApplicationUserClaim>(context.Get<ApplicationDbContext>()));
 
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
