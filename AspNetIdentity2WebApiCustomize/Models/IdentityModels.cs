@@ -48,8 +48,6 @@ namespace AspNetIdentity2WebApiCustomize.Models
       public ApplicationUser()
       {
           this.Id = Guid.NewGuid().ToString();
-
-          // Add any custom User properties/code here
       }
 
 
@@ -62,6 +60,11 @@ namespace AspNetIdentity2WebApiCustomize.Models
           // Add custom user claims here
           return userIdentity;
       }
+
+      public string Address { get; set; }
+      public string City { get; set; }
+      public string State { get; set; }
+      public string PostalCode { get; set; }
   }
 
 
@@ -76,7 +79,7 @@ namespace AspNetIdentity2WebApiCustomize.Models
       this.Name = name;
     }
 
-    // Add any custom Role properties/code here
+    public string Description { get; set; }
   }
 
 
