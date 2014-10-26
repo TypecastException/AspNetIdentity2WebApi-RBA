@@ -19,7 +19,7 @@ using AspNetIdentity2WebApiCustomize.Results;
 
 namespace AspNetIdentity2WebApiCustomize.Controllers
 {
-    [Authorize]
+    [Authorize(Roles= "Admin")]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
@@ -58,11 +58,19 @@ namespace AspNetIdentity2WebApiCustomize.Controllers
         {
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
+            // We wouldn't normally be likely to do this:
+            var user = UserManager.FindByName(User.Identity.Name);
             return new UserInfoViewModel
             {
                 Email = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
+                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null,
+
+                // Pass the custom properties too:
+                Address = user.Address,
+                City = user.City,
+                State = user.State,
+                PostalCode = user.PostalCode
             };
         }
 

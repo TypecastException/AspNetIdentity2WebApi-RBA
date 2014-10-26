@@ -23,7 +23,6 @@ namespace AspNetIdentity2WebApiCustomize.Providers
             {
                 throw new ArgumentNullException("publicClientId");
             }
-
             _publicClientId = publicClientId;
         }
 

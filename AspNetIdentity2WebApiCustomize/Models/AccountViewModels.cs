@@ -28,10 +28,12 @@ namespace AspNetIdentity2WebApiCustomize.Models
     public class UserInfoViewModel
     {
         public string Email { get; set; }
-
         public bool HasRegistered { get; set; }
-
         public string LoginProvider { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string PostalCode { get; set; }
     }
 
     public class UserLoginInfoViewModel
