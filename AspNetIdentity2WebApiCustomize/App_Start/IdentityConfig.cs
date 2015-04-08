@@ -12,6 +12,7 @@ namespace AspNetIdentity2WebApiCustomize
         : UserManager<ApplicationUser, string>
     {
         public ApplicationUserManager(IUserStore<ApplicationUser, string> store)
+        public ApplicationUserManager(ApplicationUserStore store)
             : base(store)
         {
         }
