@@ -11,7 +11,6 @@ namespace AspNetIdentity2WebApiCustomize
     public class ApplicationUserManager 
         : UserManager<ApplicationUser, string>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser, string> store)
         public ApplicationUserManager(ApplicationUserStore store)
             : base(store)
         {
@@ -21,11 +20,11 @@ namespace AspNetIdentity2WebApiCustomize
             IdentityFactoryOptions<ApplicationUserManager> options, 
             IOwinContext context)
         {
-            var manager = new ApplicationUserManager(
-                new UserStore<ApplicationUser, ApplicationRole, string, 
-                    ApplicationUserLogin, ApplicationUserRole, 
-                    ApplicationUserClaim>(context.Get<ApplicationDbContext>()));
-
+           //create a new Application User Store
+		   var manager = new ApplicationUserManager(
+                new ApplicationUserStore(context.Get<ApplicationDbContext>()));
+				
+			
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
